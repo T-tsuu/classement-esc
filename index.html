@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Résultats 2ème Prépa — 2025/2026</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header" role="banner">
+    <div class="header-content">
+      <div class="header-titles">
+        <h1 class="header-title">Résultats 2ème Prépa</h1>
+        <p class="header-subtitle">École Supérieure de Commerce · 396 étudiants · 2025/2026</p>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Changer de thème">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="search-section" aria-label="Recherche">
+      <div class="search-wrapper">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="search-input" class="search-input" placeholder="Rechercher par nom, prénom ou matricule…" aria-label="Rechercher un étudiant" autocomplete="off">
+        <button class="search-clear" type="button" aria-label="Effacer la recherche" hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <section class="controls-section" aria-label="Paramètres">
+      <div class="controls-card">
+        <div class="controls-row">
+          <div class="column-toggles-wrapper">
+            <button class="columns-toggle-btn" type="button" aria-expanded="false" aria-controls="column-toggles-panel">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              <span>Colonnes</span>
+              <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="column-toggles-panel" id="column-toggles-panel" role="group" aria-label="Colonnes optionnelles">
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="moy_s1">Moy. S1</button>
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="cred_s1">Créd. S1</button>
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="moy_s2">Moy. S2</button>
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="cred_s2">Créd. S2</button>
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="cred_annuel">Créd. ann.</button>
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="matricule">Matricule</button>
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="decision_jury">Décision</button>
+            </div>
+          </div>
+          <div class="threshold-wrapper">
+            <label class="threshold-label" for="threshold-input">Mettre en évidence les</label>
+            <input type="number" id="threshold-input" class="threshold-input" value="200" min="0" max="396" inputmode="numeric" aria-label="Nombre d'étudiants à mettre en évidence">
+            <span class="threshold-suffix">premiers</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-section" aria-label="Résumé">
+      <div class="summary-bar">
+        <span class="summary-item">Total : <strong id="summary-total">396</strong></span>
+        <span class="summary-sep" aria-hidden="true">·</span>
+        <span class="summary-item">Affichés : <strong id="summary-shown">396</strong></span>
+        <span class="summary-sep" aria-hidden="true">·</span>
+        <span class="summary-item">Évidence : <strong id="summary-highlighted">200</strong></span>
+      </div>
+    </section>
+
+    <section class="results-section" aria-label="Résultats">
+      <div class="table-container">
+        <table class="results-table" id="results-table">
+          <thead class="table-head">
+            <tr>
+              <th class="col-rank" scope="col" data-col="rank">Rang</th>
+              <th class="col-name" scope="col" data-col="nom_prenom">Nom et Prénom</th>
+              <th class="col-avg" scope="col" data-col="moy_annuelle">Moy. ann.</th>
+              <th class="col-moy_s1" scope="col" data-col="moy_s1" hidden>Moy. S1</th>
+              <th class="col-cred_s1" scope="col" data-col="cred_s1" hidden>Créd. S1</th>
+              <th class="col-moy_s2" scope="col" data-col="moy_s2" hidden>Moy. S2</th>
+              <th class="col-cred_s2" scope="col" data-col="cred_s2" hidden>Créd. S2</th>
+              <th class="col-cred_annuel" scope="col" data-col="cred_annuel" hidden>Créd. ann.</th>
+              <th class="col-matricule" scope="col" data-col="matricule" hidden>Matricule</th>
+              <th class="col-decision_jury" scope="col" data-col="decision_jury" hidden>Décision</th>
+            </tr>
+          </thead>
+          <tbody class="table-body" id="table-body"></tbody>
+        </table>
+      </div>
+      <div class="empty-state" id="empty-state" hidden>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <p>Aucun résultat trouvé</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
