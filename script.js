@@ -282,6 +282,7 @@ thresholdInput.addEventListener('input', () => {
   const val = parseInt(thresholdInput.value, 10);
   currentThreshold = isNaN(val) || val < 0 ? 0 : val;
   render();
+  updateScrollJump();
 });
 
 // ========================================
@@ -304,6 +305,59 @@ function checkScrollEnd() {
   const atEnd = tableContainer.scrollLeft + tableContainer.clientWidth >= resultsTable.scrollWidth - 2;
   tableContainer.classList.toggle('scrolled-end', atEnd);
 }
+
+// ========================================
+// Scroll Jump Widget
+// ========================================
+const scrollJumpBtn = document.getElementById('scroll-jump');
+const scrollJumpLabel = document.getElementById('scroll-jump-label');
+
+function getTargetRow() {
+  if (currentThreshold < 1 || currentThreshold > STUDENTS.length) return null;
+  return tableBody.querySelector(`tr[data-rank="${currentThreshold}"]`);
+}
+
+function getTargetTop() {
+  const row = getTargetRow();
+  if (!row) return 0;
+  const headerH = document.querySelector('.app-header').offsetHeight + 16;
+  return row.getBoundingClientRect().top + window.scrollY - headerH;
+}
+
+function isNearPos(pos) {
+  return Math.abs(window.scrollY - pos) < 200;
+}
+
+let lastDest = null;
+
+function updateScrollJump() {
+  scrollJumpLabel.textContent = currentThreshold || '—';
+  scrollJumpBtn.classList.toggle('is-visible', true);
+
+  const row = getTargetRow();
+  const pastTarget = row ? row.getBoundingClientRect().top <= window.innerHeight : false;
+  scrollJumpBtn.classList.toggle('is-near-target', pastTarget);
+}
+
+scrollJumpBtn.addEventListener('click', () => {
+  const targetTop = getTargetTop();
+  const nearTarget = isNearPos(targetTop);
+  const nearTop = isNearPos(0);
+
+  if (nearTarget && lastDest === 'target') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    lastDest = 'top';
+  } else if (nearTop && lastDest === 'top') {
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    lastDest = 'target';
+  } else {
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    lastDest = 'target';
+  }
+});
+
+window.addEventListener('scroll', updateScrollJump, { passive: true });
+updateScrollJump();
 
 // ========================================
 // Resize observer for scroll hint
