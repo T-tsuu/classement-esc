@@ -21,7 +21,7 @@ const resultsTable = document.getElementById('results-table');
 // ========================================
 // State
 // ========================================
-let currentThreshold = 200;
+let currentThreshold = 243;
 let currentQuery = '';
 let debounceTimer = null;
 const VISIBLE_BY_DEFAULT = ['rank', 'nom_prenom', 'moy_annuelle'];
