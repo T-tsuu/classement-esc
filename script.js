@@ -21,10 +21,27 @@ const resultsTable = document.getElementById('results-table');
 // ========================================
 // State
 // ========================================
-let currentThreshold = 243;
+let currentThreshold = 241;
 let currentQuery = '';
 let debounceTimer = null;
-const VISIBLE_BY_DEFAULT = ['rank', 'nom_prenom', 'moy_annuelle'];
+const VISIBLE_BY_DEFAULT = ['rank', 'nom_prenom', 'moy_classement'];
+
+function sortStudentsForRanking(a, b) {
+  const diff = Number(b.moy_classement) - Number(a.moy_classement);
+  if (diff !== 0) return diff;
+  const nameComp = a.nom_prenom.localeCompare(b.nom_prenom, undefined, { sensitivity: 'base', numeric: true });
+  if (nameComp !== 0) return nameComp;
+  return Number(a.numero) - Number(b.numero);
+}
+
+function buildRankedStudents(students) {
+  return students
+    .slice()
+    .sort(sortStudentsForRanking)
+    .map((student, index) => ({ ...student, rank: index + 1 }));
+}
+
+const rankedStudents = buildRankedStudents(STUDENTS);
 
 // ========================================
 // Theme
@@ -70,14 +87,16 @@ function normalize(str) {
 // ========================================
 const fragment = document.createDocumentFragment();
 
-STUDENTS.forEach((s) => {
+rankedStudents.forEach((s, rowIndex) => {
   const tr = document.createElement('tr');
+  tr.dataset.index = rowIndex;
   tr.dataset.rank = s.rank;
 
   tr.innerHTML = `
     <td class="col-rank">${s.rank}</td>
     <td class="col-name">${escapeHtml(s.nom_prenom)}</td>
-    <td class="col-avg">${formatNum(s.moy_annuelle)}</td>
+    <td class="col-avg">${formatNum(s.moy_classement)}</td>
+    <td class="col-avg" hidden>${formatNum(s.moy_annuelle)}</td>
     <td class="col-moy_s1" hidden>${formatNum(s.moy_s1)}</td>
     <td class="col-cred_s1" hidden>${s.cred_s1}</td>
     <td class="col-moy_s2" hidden>${formatNum(s.moy_s2)}</td>
@@ -145,7 +164,7 @@ function render() {
   let highlightedCount = 0;
 
   allRows.forEach((tr) => {
-    const s = STUDENTS[parseInt(tr.dataset.rank, 10) - 1];
+    const s = rankedStudents[parseInt(tr.dataset.index, 10)];
 
     // Search filter
     let visible = true;
@@ -188,12 +207,13 @@ function render() {
 // ========================================
 // Column visibility
 // ========================================
-const COL_ORDER = ['rank', 'nom_prenom', 'moy_annuelle', 'moy_s1', 'cred_s1', 'moy_s2', 'cred_s2', 'cred_annuel', 'matricule', 'decision_jury'];
+const COL_ORDER = ['rank', 'nom_prenom', 'moy_classement', 'moy_annuelle', 'moy_s1', 'cred_s1', 'moy_s2', 'cred_s2', 'cred_annuel', 'matricule', 'decision_jury'];
 
 const columnVisibility = {
   rank: true,
   nom_prenom: true,
-  moy_annuelle: true,
+  moy_classement: true,
+  moy_annuelle: false,
   moy_s1: false,
   cred_s1: false,
   moy_s2: false,
@@ -313,7 +333,7 @@ const scrollJumpBtn = document.getElementById('scroll-jump');
 const scrollJumpLabel = document.getElementById('scroll-jump-label');
 
 function getTargetRow() {
-  if (currentThreshold < 1 || currentThreshold > STUDENTS.length) return null;
+  if (currentThreshold < 1 || currentThreshold > rankedStudents.length) return null;
   return tableBody.querySelector(`tr[data-rank="${currentThreshold}"]`);
 }
 
@@ -370,5 +390,5 @@ if (typeof ResizeObserver !== 'undefined') {
 // ========================================
 // Initial render
 // ========================================
-summaryTotal.textContent = STUDENTS.length;
+summaryTotal.textContent = rankedStudents.length;
 render();

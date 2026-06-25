@@ -48,13 +48,14 @@
               <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="moy_s2">Moy. S2</button>
               <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="cred_s2">Créd. S2</button>
               <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="cred_annuel">Créd. ann.</button>
+              <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="moy_annuelle">Moy. ann.</button>
               <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="matricule">Matricule</button>
               <button class="column-pill" type="button" role="checkbox" aria-checked="false" data-column="decision_jury">Décision</button>
             </div>
           </div>
           <div class="threshold-wrapper">
             <label class="threshold-label" for="threshold-input">Mettre en évidence les</label>
-            <input type="number" id="threshold-input" class="threshold-input" value="243" min="0" max="396" inputmode="numeric" aria-label="Nombre d'étudiants à mettre en évidence">
+            <input type="number" id="threshold-input" class="threshold-input" value="241" min="0" max="396" inputmode="numeric" aria-label="Nombre d'étudiants à mettre en évidence">
             <span class="threshold-suffix">premiers</span>
           </div>
         </div>
@@ -67,7 +68,7 @@
         <span class="summary-sep" aria-hidden="true">·</span>
         <span class="summary-item">Affichés : <strong id="summary-shown">396</strong></span>
         <span class="summary-sep" aria-hidden="true">·</span>
-        <span class="summary-item">Évidence : <strong id="summary-highlighted">243</strong></span>
+        <span class="summary-item">Évidence : <strong id="summary-highlighted">241</strong></span>
       </div>
     </section>
 
@@ -78,7 +79,8 @@
             <tr>
               <th class="col-rank" scope="col" data-col="rank">Rank</th>
               <th class="col-name" scope="col" data-col="nom_prenom">Nom et Prénom</th>
-              <th class="col-avg" scope="col" data-col="moy_annuelle">Moy. ann.</th>
+              <th class="col-avg" scope="col" data-col="moy_classement">Moy. class.</th>
+              <th class="col-avg" scope="col" data-col="moy_annuelle" hidden>Moy. ann.</th>
               <th class="col-moy_s1" scope="col" data-col="moy_s1" hidden>Moy. S1</th>
               <th class="col-cred_s1" scope="col" data-col="cred_s1" hidden>Créd. S1</th>
               <th class="col-moy_s2" scope="col" data-col="moy_s2" hidden>Moy. S2</th>
@@ -101,7 +103,7 @@
   <button class="scroll-jump" id="scroll-jump" type="button" aria-label="Sauter au rang cible">
     <svg class="icon-arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
     <svg class="icon-arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-    <span class="scroll-jump-label" id="scroll-jump-label">243</span>
+    <span class="scroll-jump-label" id="scroll-jump-label">241</span>
   </button>
 
   <script type="module" src="script.js"></script>
